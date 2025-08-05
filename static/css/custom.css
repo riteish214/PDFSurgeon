@@ -1,0 +1,153 @@
+/* Custom styles for PDF Tools application */
+
+.tool-card {
+    transition: transform 0.2s ease-in-out;
+    border: 1px solid var(--bs-border-color);
+}
+
+.tool-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.tool-icon {
+    padding: 20px;
+    border-radius: 50%;
+    background-color: rgba(var(--bs-primary-rgb), 0.1);
+    display: inline-block;
+}
+
+.file-item {
+    background-color: var(--bs-light);
+    transition: background-color 0.2s ease;
+}
+
+.file-item:hover {
+    background-color: var(--bs-gray-100);
+}
+
+.rotation-demo {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.page-preview {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    border: 2px dashed var(--bs-border-color);
+    border-radius: 8px;
+    background-color: var(--bs-light);
+    transition: transform 0.3s ease;
+    width: 80px;
+    height: 100px;
+    justify-content: center;
+}
+
+.page-preview.rotated {
+    transform-origin: center;
+}
+
+.progress {
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.progress-bar {
+    transition: width 0.3s ease, background-color 0.3s ease;
+}
+
+/* Upload area styling */
+.upload-area {
+    border: 2px dashed var(--bs-border-color);
+    border-radius: 8px;
+    padding: 40px 20px;
+    text-align: center;
+    background-color: var(--bs-light);
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.upload-area:hover {
+    border-color: var(--bs-primary);
+    background-color: rgba(var(--bs-primary-rgb), 0.05);
+}
+
+.upload-area.dragover {
+    border-color: var(--bs-success);
+    background-color: rgba(var(--bs-success-rgb), 0.1);
+}
+
+/* Loading states */
+.btn.loading {
+    position: relative;
+    color: transparent;
+}
+
+.btn.loading::after {
+    content: "";
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    top: 50%;
+    left: 50%;
+    margin-left: -8px;
+    margin-top: -8px;
+    border: 2px solid transparent;
+    border-top-color: currentColor;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .rotation-demo {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .tool-card {
+        margin-bottom: 1rem;
+    }
+    
+    .page-preview {
+        width: 60px;
+        height: 80px;
+        padding: 15px;
+    }
+}
+
+/* Dark theme specific adjustments */
+[data-bs-theme="dark"] .file-item {
+    background-color: var(--bs-gray-800);
+    border-color: var(--bs-gray-700);
+}
+
+[data-bs-theme="dark"] .file-item:hover {
+    background-color: var(--bs-gray-700);
+}
+
+[data-bs-theme="dark"] .upload-area {
+    background-color: var(--bs-gray-800);
+    border-color: var(--bs-gray-600);
+}
+
+[data-bs-theme="dark"] .upload-area:hover {
+    background-color: var(--bs-gray-700);
+}
+
+[data-bs-theme="dark"] .page-preview {
+    background-color: var(--bs-gray-800);
+    border-color: var(--bs-gray-600);
+}
+
+[data-bs-theme="dark"] .tool-icon {
+    background-color: rgba(var(--bs-primary-rgb), 0.2);
+}

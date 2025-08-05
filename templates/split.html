@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+
+{% block title %}PDF Tools - Split PDF{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="card">
+            <div class="card-header bg-success text-white">
+                <h4 class="mb-0">
+                    <i class="fas fa-cut me-2"></i>
+                    Split PDF into Pages
+                </h4>
+            </div>
+            <div class="card-body">
+                <p class="text-muted mb-4">
+                    Extract individual pages from your PDF document. Each page will be saved as a separate PDF file.
+                </p>
+
+                <form action="{{ url_for('api_split') }}" method="post" enctype="multipart/form-data" id="splitForm">
+                    <div class="mb-4">
+                        <label for="file" class="form-label">Select PDF File</label>
+                        <input type="file" class="form-control" id="file" name="file" 
+                               accept=".pdf" required>
+                        <div class="form-text">
+                            <i class="fas fa-info-circle me-1"></i>
+                            Select a PDF file to split. Maximum file size: 50MB.
+                        </div>
+                    </div>
+
+                    <!-- File Preview -->
+                    <div id="filePreview" class="mb-4" style="display: none;">
+                        <h6>Selected File:</h6>
+                        <div id="filePreviewContainer" class="border rounded p-3 bg-light">
+                            <!-- File info will be shown here -->
+                        </div>
+                    </div>
+
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-success btn-lg" id="splitBtn" disabled>
+                            <i class="fas fa-cut me-2"></i>
+                            Split PDF into Pages
+                        </button>
+                        <a href="{{ url_for('index') }}" class="btn btn-outline-secondary">
+                            <i class="fas fa-arrow-left me-2"></i>
+                            Back to Tools
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Instructions -->
+        <div class="card mt-4">
+            <div class="card-header">
+                <h6 class="mb-0">
+                    <i class="fas fa-question-circle me-2"></i>
+                    How to Split PDF
+                </h6>
+            </div>
+            <div class="card-body">
+                <ol class="mb-0">
+                    <li>Click "Choose Files" and select a PDF file</li>
+                    <li>Click "Split PDF into Pages" to extract all pages</li>
+                    <li>Download the ZIP file containing all individual pages</li>
+                    <li>Extract the ZIP to access individual PDF pages</li>
+                </ol>
+                <div class="alert alert-info mt-3 mb-0">
+                    <small>
+                        <i class="fas fa-lightbulb me-1"></i>
+                        <strong>Note:</strong> Each page will be saved as a separate PDF file (page_1.pdf, page_2.pdf, etc.).
+                    </small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.getElementById('file').addEventListener('change', function(e) {
+    const file = e.target.files[0];
+    const filePreview = document.getElementById('filePreview');
+    const filePreviewContainer = document.getElementById('filePreviewContainer');
+    const splitBtn = document.getElementById('splitBtn');
+    
+    if (file) {
+        // Show file preview
+        filePreview.style.display = 'block';
+        filePreviewContainer.innerHTML = `
+            <div class="d-flex align-items-center">
+                <i class="fas fa-file-pdf text-danger me-3"></i>
+                <div>
+                    <strong>${file.name}</strong><br>
+                    <small class="text-muted">Size: ${(file.size / 1024 / 1024).toFixed(2)} MB</small>
+                </div>
+            </div>
+        `;
+        
+        splitBtn.disabled = false;
+    } else {
+        filePreview.style.display = 'none';
+        splitBtn.disabled = true;
+    }
+});
+</script>
+{% endblock %}

@@ -1,0 +1,141 @@
+{% extends "base.html" %}
+
+{% block title %}PDF Tools - Home{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="text-center mb-5">
+            <h1 class="display-4 text-primary">
+                <i class="fas fa-file-pdf text-danger me-3"></i>
+                PDF Tools Suite
+            </h1>
+            <p class="lead">Professional PDF manipulation tools for all your document needs</p>
+        </div>
+    </div>
+</div>
+
+<div class="row g-4">
+    <!-- Merge Tool -->
+    <div class="col-md-6 col-lg-4">
+        <div class="card h-100 tool-card">
+            <div class="card-body text-center">
+                <div class="tool-icon mb-3">
+                    <i class="fas fa-object-group fa-3x text-primary"></i>
+                </div>
+                <h5 class="card-title">Merge PDFs</h5>
+                <p class="card-text">Combine multiple PDF files into a single document with ease.</p>
+                <a href="{{ url_for('merge') }}" class="btn btn-outline-primary">
+                    <i class="fas fa-arrow-right me-1"></i>Start Merging
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Split Tool -->
+    <div class="col-md-6 col-lg-4">
+        <div class="card h-100 tool-card">
+            <div class="card-body text-center">
+                <div class="tool-icon mb-3">
+                    <i class="fas fa-cut fa-3x text-success"></i>
+                </div>
+                <h5 class="card-title">Split PDF</h5>
+                <p class="card-text">Extract individual pages or ranges from your PDF documents.</p>
+                <a href="{{ url_for('split') }}" class="btn btn-outline-success">
+                    <i class="fas fa-arrow-right me-1"></i>Start Splitting
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Convert Tool -->
+    <div class="col-md-6 col-lg-4">
+        <div class="card h-100 tool-card">
+            <div class="card-body text-center">
+                <div class="tool-icon mb-3">
+                    <i class="fas fa-exchange-alt fa-3x text-info"></i>
+                </div>
+                <h5 class="card-title">Convert Files</h5>
+                <p class="card-text">Convert between PDF, Word, and PowerPoint formats.</p>
+                <a href="{{ url_for('convert') }}" class="btn btn-outline-info">
+                    <i class="fas fa-arrow-right me-1"></i>Start Converting
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Compress Tool -->
+    <div class="col-md-6 col-lg-4">
+        <div class="card h-100 tool-card">
+            <div class="card-body text-center">
+                <div class="tool-icon mb-3">
+                    <i class="fas fa-compress fa-3x text-warning"></i>
+                </div>
+                <h5 class="card-title">Compress PDF</h5>
+                <p class="card-text">Reduce PDF file size while maintaining quality.</p>
+                <a href="{{ url_for('compress') }}" class="btn btn-outline-warning">
+                    <i class="fas fa-arrow-right me-1"></i>Start Compressing
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Rotate Tool -->
+    <div class="col-md-6 col-lg-4">
+        <div class="card h-100 tool-card">
+            <div class="card-body text-center">
+                <div class="tool-icon mb-3">
+                    <i class="fas fa-redo fa-3x text-secondary"></i>
+                </div>
+                <h5 class="card-title">Rotate Pages</h5>
+                <p class="card-text">Rotate PDF pages to correct orientation or rearrange layout.</p>
+                <a href="{{ url_for('rotate') }}" class="btn btn-outline-secondary">
+                    <i class="fas fa-arrow-right me-1"></i>Start Rotating
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Security Tool -->
+    <div class="col-md-6 col-lg-4">
+        <div class="card h-100 tool-card">
+            <div class="card-body text-center">
+                <div class="tool-icon mb-3">
+                    <i class="fas fa-lock fa-3x text-danger"></i>
+                </div>
+                <h5 class="card-title">Secure PDF</h5>
+                <p class="card-text">Add password protection to your PDF documents.</p>
+                <a href="{{ url_for('secure') }}" class="btn btn-outline-danger">
+                    <i class="fas fa-arrow-right me-1"></i>Secure Document
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Features Section -->
+<div class="row mt-5">
+    <div class="col-12">
+        <div class="bg-secondary rounded p-4">
+            <h3 class="text-center mb-4">Why Choose Our PDF Tools?</h3>
+            <div class="row">
+                <div class="col-md-4 text-center mb-3">
+                    <i class="fas fa-shield-alt fa-2x text-success mb-2"></i>
+                    <h6>Secure Processing</h6>
+                    <small>Your files are processed securely and deleted after use.</small>
+                </div>
+                <div class="col-md-4 text-center mb-3">
+                    <i class="fas fa-bolt fa-2x text-warning mb-2"></i>
+                    <h6>Fast & Efficient</h6>
+                    <small>Quick processing with optimized algorithms.</small>
+                </div>
+                <div class="col-md-4 text-center mb-3">
+                    <i class="fas fa-mobile-alt fa-2x text-info mb-2"></i>
+                    <h6>Mobile Friendly</h6>
+                    <small>Works perfectly on all devices and screen sizes.</small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

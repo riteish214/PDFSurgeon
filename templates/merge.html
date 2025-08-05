@@ -1,0 +1,116 @@
+{% extends "base.html" %}
+
+{% block title %}PDF Tools - Merge PDFs{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h4 class="mb-0">
+                    <i class="fas fa-object-group me-2"></i>
+                    Merge PDF Files
+                </h4>
+            </div>
+            <div class="card-body">
+                <p class="text-muted mb-4">
+                    Select multiple PDF files to combine them into a single document. 
+                    Files will be merged in the order you select them.
+                </p>
+
+                <form action="{{ url_for('api_merge') }}" method="post" enctype="multipart/form-data" id="mergeForm">
+                    <div class="mb-4">
+                        <label for="files" class="form-label">Select PDF Files</label>
+                        <input type="file" class="form-control" id="files" name="files" 
+                               accept=".pdf" multiple required>
+                        <div class="form-text">
+                            <i class="fas fa-info-circle me-1"></i>
+                            Select at least 2 PDF files. Maximum file size: 50MB per file.
+                        </div>
+                    </div>
+
+                    <!-- File List Preview -->
+                    <div id="fileList" class="mb-4" style="display: none;">
+                        <h6>Selected Files:</h6>
+                        <div id="fileListContainer" class="border rounded p-3 bg-light">
+                            <!-- Files will be listed here -->
+                        </div>
+                    </div>
+
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-primary btn-lg" id="mergeBtn" disabled>
+                            <i class="fas fa-object-group me-2"></i>
+                            Merge PDF Files
+                        </button>
+                        <a href="{{ url_for('index') }}" class="btn btn-outline-secondary">
+                            <i class="fas fa-arrow-left me-2"></i>
+                            Back to Tools
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Instructions -->
+        <div class="card mt-4">
+            <div class="card-header">
+                <h6 class="mb-0">
+                    <i class="fas fa-question-circle me-2"></i>
+                    How to Merge PDFs
+                </h6>
+            </div>
+            <div class="card-body">
+                <ol class="mb-0">
+                    <li>Click "Choose Files" and select multiple PDF files</li>
+                    <li>Review the file order in the preview list</li>
+                    <li>Click "Merge PDF Files" to combine them</li>
+                    <li>Download your merged PDF file</li>
+                </ol>
+                <div class="alert alert-info mt-3 mb-0">
+                    <small>
+                        <i class="fas fa-lightbulb me-1"></i>
+                        <strong>Tip:</strong> The order of file selection determines the order in the merged PDF.
+                    </small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.getElementById('files').addEventListener('change', function(e) {
+    const files = e.target.files;
+    const fileList = document.getElementById('fileList');
+    const fileListContainer = document.getElementById('fileListContainer');
+    const mergeBtn = document.getElementById('mergeBtn');
+    
+    if (files.length >= 2) {
+        // Show file list
+        fileList.style.display = 'block';
+        fileListContainer.innerHTML = '';
+        
+        for (let i = 0; i < files.length; i++) {
+            const file = files[i];
+            const fileItem = document.createElement('div');
+            fileItem.className = 'file-item d-flex justify-content-between align-items-center mb-2 p-2 border rounded';
+            fileItem.innerHTML = `
+                <div>
+                    <i class="fas fa-file-pdf text-danger me-2"></i>
+                    <span>${file.name}</span>
+                    <small class="text-muted ms-2">(${(file.size / 1024 / 1024).toFixed(2)} MB)</small>
+                </div>
+                <span class="badge bg-primary">${i + 1}</span>
+            `;
+            fileListContainer.appendChild(fileItem);
+        }
+        
+        mergeBtn.disabled = false;
+    } else {
+        fileList.style.display = 'none';
+        mergeBtn.disabled = true;
+    }
+});
+</script>
+{% endblock %}

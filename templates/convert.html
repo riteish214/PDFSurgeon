@@ -1,0 +1,162 @@
+{% extends "base.html" %}
+
+{% block title %}PDF Tools - Convert Files{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="card">
+            <div class="card-header bg-info text-white">
+                <h4 class="mb-0">
+                    <i class="fas fa-exchange-alt me-2"></i>
+                    Convert Between File Formats
+                </h4>
+            </div>
+            <div class="card-body">
+                <p class="text-muted mb-4">
+                    Convert between PDF, Word (DOC/DOCX), and PowerPoint (PPT/PPTX) formats.
+                </p>
+
+                <form action="{{ url_for('api_convert') }}" method="post" enctype="multipart/form-data" id="convertForm">
+                    <div class="mb-4">
+                        <label for="conversion_type" class="form-label">Conversion Type</label>
+                        <select class="form-select" id="conversion_type" name="conversion_type" required>
+                            <option value="">Select conversion type...</option>
+                            <option value="pdf_to_word">PDF to Word (.docx)</option>
+                            <option value="pdf_to_ppt">PDF to PowerPoint (.pptx)</option>
+                            <option value="word_to_pdf">Word to PDF</option>
+                            <option value="ppt_to_pdf">PowerPoint to PDF</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="file" class="form-label">Select File</label>
+                        <input type="file" class="form-control" id="file" name="file" required>
+                        <div class="form-text" id="fileHelpText">
+                            <i class="fas fa-info-circle me-1"></i>
+                            Please select a conversion type first.
+                        </div>
+                    </div>
+
+                    <!-- File Preview -->
+                    <div id="filePreview" class="mb-4" style="display: none;">
+                        <h6>Selected File:</h6>
+                        <div id="filePreviewContainer" class="border rounded p-3 bg-light">
+                            <!-- File info will be shown here -->
+                        </div>
+                    </div>
+
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-info btn-lg" id="convertBtn" disabled>
+                            <i class="fas fa-exchange-alt me-2"></i>
+                            Convert File
+                        </button>
+                        <a href="{{ url_for('index') }}" class="btn btn-outline-secondary">
+                            <i class="fas fa-arrow-left me-2"></i>
+                            Back to Tools
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Instructions -->
+        <div class="card mt-4">
+            <div class="card-header">
+                <h6 class="mb-0">
+                    <i class="fas fa-question-circle me-2"></i>
+                    Supported Conversions
+                </h6>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h6 class="text-primary">From PDF:</h6>
+                        <ul class="list-unstyled">
+                            <li><i class="fas fa-arrow-right text-muted me-2"></i>PDF to Word (.docx)</li>
+                            <li><i class="fas fa-arrow-right text-muted me-2"></i>PDF to PowerPoint (.pptx)</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <h6 class="text-success">To PDF:</h6>
+                        <ul class="list-unstyled">
+                            <li><i class="fas fa-arrow-right text-muted me-2"></i>Word (.doc/.docx) to PDF</li>
+                            <li><i class="fas fa-arrow-right text-muted me-2"></i>PowerPoint (.ppt/.pptx) to PDF</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="alert alert-warning mt-3 mb-0">
+                    <small>
+                        <i class="fas fa-exclamation-triangle me-1"></i>
+                        <strong>Note:</strong> Complex formatting may not be perfectly preserved during conversion.
+                    </small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+const conversionType = document.getElementById('conversion_type');
+const fileInput = document.getElementById('file');
+const fileHelpText = document.getElementById('fileHelpText');
+const filePreview = document.getElementById('filePreview');
+const filePreviewContainer = document.getElementById('filePreviewContainer');
+const convertBtn = document.getElementById('convertBtn');
+
+// Update file input based on conversion type
+conversionType.addEventListener('change', function() {
+    const type = this.value;
+    
+    if (type === 'pdf_to_word' || type === 'pdf_to_ppt') {
+        fileInput.setAttribute('accept', '.pdf');
+        fileHelpText.innerHTML = '<i class="fas fa-info-circle me-1"></i>Select a PDF file. Maximum file size: 50MB.';
+    } else if (type === 'word_to_pdf') {
+        fileInput.setAttribute('accept', '.doc,.docx');
+        fileHelpText.innerHTML = '<i class="fas fa-info-circle me-1"></i>Select a Word document (.doc or .docx). Maximum file size: 50MB.';
+    } else if (type === 'ppt_to_pdf') {
+        fileInput.setAttribute('accept', '.ppt,.pptx');
+        fileHelpText.innerHTML = '<i class="fas fa-info-circle me-1"></i>Select a PowerPoint presentation (.ppt or .pptx). Maximum file size: 50MB.';
+    } else {
+        fileInput.removeAttribute('accept');
+        fileHelpText.innerHTML = '<i class="fas fa-info-circle me-1"></i>Please select a conversion type first.';
+    }
+    
+    // Reset file input and preview
+    fileInput.value = '';
+    filePreview.style.display = 'none';
+    updateConvertButton();
+});
+
+// Handle file selection
+fileInput.addEventListener('change', function(e) {
+    const file = e.target.files[0];
+    
+    if (file) {
+        // Show file preview
+        filePreview.style.display = 'block';
+        filePreviewContainer.innerHTML = `
+            <div class="d-flex align-items-center">
+                <i class="fas fa-file text-primary me-3"></i>
+                <div>
+                    <strong>${file.name}</strong><br>
+                    <small class="text-muted">Size: ${(file.size / 1024 / 1024).toFixed(2)} MB</small>
+                </div>
+            </div>
+        `;
+    } else {
+        filePreview.style.display = 'none';
+    }
+    
+    updateConvertButton();
+});
+
+function updateConvertButton() {
+    const hasConversionType = conversionType.value !== '';
+    const hasFile = fileInput.files.length > 0;
+    convertBtn.disabled = !(hasConversionType && hasFile);
+}
+</script>
+{% endblock %}
