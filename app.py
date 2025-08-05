@@ -15,7 +15,7 @@ app.secret_key = os.environ.get("SESSION_SECRET", "dev-secret-key-change-in-prod
 
 # Configuration
 UPLOAD_FOLDER = 'uploads'
-MAX_FILE_SIZE = 50 * 1024 * 1024  # 50MB
+MAX_FILE_SIZE = 100 * 1024 * 1024  # 100MB (increased from 50MB)
 ALLOWED_EXTENSIONS = {'pdf', 'doc', 'docx', 'ppt', 'pptx'}
 
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
@@ -247,8 +247,8 @@ def api_secure():
 
 @app.errorhandler(413)
 def too_large(e):
-    flash('File too large. Maximum file size is 50MB.', 'error')
-    return redirect(request.url)
+    flash('File too large. Maximum file size is 100MB.', 'error')
+    return redirect(request.referrer or url_for('index'))
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)

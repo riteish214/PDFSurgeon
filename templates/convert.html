@@ -112,13 +112,13 @@ conversionType.addEventListener('change', function() {
     
     if (type === 'pdf_to_word' || type === 'pdf_to_ppt') {
         fileInput.setAttribute('accept', '.pdf');
-        fileHelpText.innerHTML = '<i class="fas fa-info-circle me-1"></i>Select a PDF file. Maximum file size: 50MB.';
+        fileHelpText.innerHTML = '<i class="fas fa-info-circle me-1"></i>Select a PDF file. Maximum file size: 100MB.';
     } else if (type === 'word_to_pdf') {
         fileInput.setAttribute('accept', '.doc,.docx');
-        fileHelpText.innerHTML = '<i class="fas fa-info-circle me-1"></i>Select a Word document (.doc or .docx). Maximum file size: 50MB.';
+        fileHelpText.innerHTML = '<i class="fas fa-info-circle me-1"></i>Select a Word document (.doc or .docx). Maximum file size: 100MB.';
     } else if (type === 'ppt_to_pdf') {
         fileInput.setAttribute('accept', '.ppt,.pptx');
-        fileHelpText.innerHTML = '<i class="fas fa-info-circle me-1"></i>Select a PowerPoint presentation (.ppt or .pptx). Maximum file size: 50MB.';
+        fileHelpText.innerHTML = '<i class="fas fa-info-circle me-1"></i>Select a PowerPoint presentation (.ppt or .pptx). Maximum file size: 100MB.';
     } else {
         fileInput.removeAttribute('accept');
         fileHelpText.innerHTML = '<i class="fas fa-info-circle me-1"></i>Please select a conversion type first.';

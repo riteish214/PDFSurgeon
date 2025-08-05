@@ -32,12 +32,12 @@ function initializeFileInputs() {
  * Validate file size against maximum allowed
  */
 function validateFileSize(input) {
-    const maxSize = 50 * 1024 * 1024; // 50MB
+    const maxSize = 100 * 1024 * 1024; // 100MB
     const files = input.files;
     
     for (let file of files) {
         if (file.size > maxSize) {
-            showAlert(`File "${file.name}" is too large. Maximum size is 50MB.`, 'danger');
+            showAlert(`File "${file.name}" is too large. Maximum size is 100MB.`, 'danger');
             input.value = ''; // Clear the input
             return false;
         }

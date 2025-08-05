@@ -55,8 +55,8 @@ class FileHandler:
             logger.warning(f"Empty file: {file.filename}")
             return False
         
-        # File size validation (50MB max)
-        max_size = 50 * 1024 * 1024  # 50MB
+        # File size validation (100MB max)
+        max_size = 100 * 1024 * 1024  # 100MB
         if size > max_size:
             logger.warning(f"File too large: {file.filename} ({size} bytes)")
             return False
