@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+
+{% block title %}Register - PDF Tools{% endblock %}
+
+{% block content %}
+<div class="min-h-screen flex items-center justify-center animate-fade-in">
+    <div class="max-w-md w-full space-y-8">
+        <div class="text-center">
+            <i class="fas fa-user-plus text-5xl text-neon-green mb-4"></i>
+            <h2 class="text-3xl font-bold">Create Account</h2>
+            <p class="text-dark-secondary mt-2">Join PDF Tools for enhanced features</p>
+        </div>
+        
+        <div class="bg-dark-card border border-dark-border rounded-lg p-8">
+            <form method="POST" class="space-y-6">
+                <div>
+                    <label for="username" class="block text-sm font-medium mb-2">Username</label>
+                    <input 
+                        id="username" 
+                        name="username" 
+                        type="text" 
+                        required 
+                        class="w-full bg-dark-bg border border-dark-border rounded-lg px-3 py-2 text-dark-text focus:border-neon-blue focus:outline-none transition-colors"
+                        placeholder="Choose a username"
+                    >
+                </div>
+                
+                <div>
+                    <label for="email" class="block text-sm font-medium mb-2">Email</label>
+                    <input 
+                        id="email" 
+                        name="email" 
+                        type="email" 
+                        required 
+                        class="w-full bg-dark-bg border border-dark-border rounded-lg px-3 py-2 text-dark-text focus:border-neon-blue focus:outline-none transition-colors"
+                        placeholder="Enter your email"
+                    >
+                </div>
+                
+                <div>
+                    <label for="password" class="block text-sm font-medium mb-2">Password</label>
+                    <input 
+                        id="password" 
+                        name="password" 
+                        type="password" 
+                        required 
+                        minlength="8"
+                        class="w-full bg-dark-bg border border-dark-border rounded-lg px-3 py-2 text-dark-text focus:border-neon-blue focus:outline-none transition-colors"
+                        placeholder="Create a password (min 8 chars)"
+                    >
+                </div>
+                
+                <button 
+                    type="submit" 
+                    class="w-full bg-neon-green text-black py-3 rounded-lg font-semibold hover:bg-neon-blue transition-all duration-300 transform hover:scale-105"
+                >
+                    <i class="fas fa-user-plus mr-2"></i>Create Account
+                </button>
+            </form>
+            
+            <div class="mt-6 text-center">
+                <p class="text-dark-secondary">
+                    Already have an account?
+                    <a href="{{ url_for('login') }}" class="text-neon-green hover:text-neon-blue transition-colors">
+                        Sign in here
+                    </a>
+                </p>
+            </div>
+        </div>
+        
+        <div class="text-center">
+            <a href="{{ url_for('index') }}" class="text-dark-secondary hover:text-neon-blue transition-colors">
+                <i class="fas fa-arrow-left mr-2"></i>Back to Home
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

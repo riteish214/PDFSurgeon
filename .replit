@@ -2,7 +2,7 @@ modules = ["web", "python-3.11", "nodejs-20"]
 
 [nix]
 channel = "stable-25_05"
-packages = ["freetype", "glibcLocales", "imagemagickBig", "openssl", "postgresql"]
+packages = ["cargo", "freetype", "glibcLocales", "imagemagickBig", "libiconv", "openssl", "postgresql", "rustc"]
 
 [deployment]
 deploymentTarget = "autoscale"
@@ -44,3 +44,6 @@ args = "uv add PyPDF2 pdf2docx python-pptx reportlab"
 [[ports]]
 localPort = 5000
 externalPort = 80
+
+[agent]
+integrations = ["python_database==1.0.0"]

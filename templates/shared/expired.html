@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block title %}Content Expired{% endblock %}
+
+{% block content %}
+<div class="min-h-screen flex items-center justify-center animate-fade-in">
+    <div class="max-w-md w-full text-center space-y-8">
+        <div>
+            <i class="fas fa-clock text-6xl text-red-500 mb-6"></i>
+            <h2 class="text-3xl font-bold text-red-400 mb-4">Content Expired</h2>
+            <p class="text-dark-secondary">
+                This shared content has expired or reached its download limit and is no longer available.
+            </p>
+        </div>
+        
+        <div class="bg-dark-card border border-red-700 rounded-lg p-8">
+            <div class="text-red-100">
+                <h3 class="font-semibold mb-3">Possible reasons:</h3>
+                <ul class="text-sm space-y-2 text-left">
+                    <li class="flex items-start">
+                        <i class="fas fa-clock text-red-400 mr-2 mt-1"></i>
+                        The expiration time has passed
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fas fa-download text-red-400 mr-2 mt-1"></i>
+                        Maximum download limit reached
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fas fa-trash text-red-400 mr-2 mt-1"></i>
+                        Content was manually deleted
+                    </li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="space-y-4">
+            <a 
+                href="{{ url_for('share') }}" 
+                class="inline-block bg-neon-blue text-black px-8 py-3 rounded-lg font-semibold hover:bg-neon-green transition-all duration-300"
+            >
+                <i class="fas fa-share-alt mr-2"></i>Share New Content
+            </a>
+            
+            <div>
+                <a href="{{ url_for('index') }}" class="text-dark-secondary hover:text-neon-blue transition-colors">
+                    <i class="fas fa-home mr-2"></i>Back to Home
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

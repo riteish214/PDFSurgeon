@@ -1,0 +1,241 @@
+{% extends "base.html" %}
+
+{% block title %}Secure File Sharing{% endblock %}
+
+{% block content %}
+<div class="animate-fade-in">
+    <!-- Page Header -->
+    <div class="text-center mb-12">
+        <h1 class="text-4xl font-bold text-neon-green mb-4">
+            <i class="fas fa-share-alt mr-3"></i>Secure File Sharing
+        </h1>
+        <p class="text-xl text-dark-secondary">Share files or text securely with unique codes and QR codes</p>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+        <!-- Upload Section -->
+        <div class="space-y-8">
+            <!-- File Upload -->
+            <div class="bg-dark-card border border-dark-border rounded-lg p-8">
+                <h2 class="text-2xl font-bold mb-6 text-neon-blue">
+                    <i class="fas fa-cloud-upload-alt mr-3"></i>Upload File
+                </h2>
+                
+                <form id="fileShareForm" class="space-y-6">
+                    <!-- File Upload Area -->
+                    <div class="file-input-custom rounded-lg p-8 text-center cursor-pointer" onclick="document.getElementById('shareFile').click()">
+                        <i class="fas fa-cloud-upload-alt text-4xl text-neon-blue mb-4"></i>
+                        <p class="text-lg mb-2">Drop file here or click to select</p>
+                        <p class="text-sm text-dark-secondary">Support for PDF, DOCX, TXT, CSV files (Max: 100MB)</p>
+                        <input type="file" id="shareFile" name="file" class="hidden" accept=".pdf,.docx,.txt,.csv">
+                    </div>
+                    <div id="fileInfo" class="hidden p-4 bg-dark-bg rounded-lg"></div>
+
+                    <!-- File Details -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Title (Optional)</label>
+                            <input type="text" name="title" placeholder="Enter file title" class="w-full bg-dark-bg border border-dark-border rounded-lg px-3 py-2 text-dark-text focus:border-neon-blue focus:outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Expiry Time</label>
+                            <select name="expiry_hours" class="w-full bg-dark-bg border border-dark-border rounded-lg px-3 py-2 text-dark-text focus:border-neon-blue focus:outline-none">
+                                <option value="1">1 Hour</option>
+                                <option value="6">6 Hours</option>
+                                <option value="24" selected>24 Hours</option>
+                                <option value="72">3 Days</option>
+                                <option value="168">1 Week</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Description (Optional)</label>
+                        <textarea name="description" rows="3" placeholder="Enter file description" class="w-full bg-dark-bg border border-dark-border rounded-lg px-3 py-2 text-dark-text focus:border-neon-blue focus:outline-none resize-none"></textarea>
+                    </div>
+
+                    <!-- Advanced Options -->
+                    <div class="border-t border-dark-border pt-6">
+                        <h3 class="font-semibold mb-4 text-neon-green">
+                            <i class="fas fa-cog mr-2"></i>Advanced Options
+                        </h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium mb-2">Download Limit (Optional)</label>
+                                <input type="number" name="max_downloads" min="1" max="100" placeholder="Unlimited" class="w-full bg-dark-bg border border-dark-border rounded-lg px-3 py-2 text-dark-text focus:border-neon-blue focus:outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium mb-2">Access Password (Optional)</label>
+                                <input type="password" name="access_password" placeholder="Enter password" class="w-full bg-dark-bg border border-dark-border rounded-lg px-3 py-2 text-dark-text focus:border-neon-blue focus:outline-none">
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="w-full bg-neon-blue text-black py-3 rounded-lg font-semibold hover:bg-neon-green transition-all duration-300 transform hover:scale-105">
+                        <i class="fas fa-share-alt mr-2"></i>Share File
+                    </button>
+                </form>
+            </div>
+
+            <!-- Text Sharing -->
+            <div class="bg-dark-card border border-dark-border rounded-lg p-8">
+                <h2 class="text-2xl font-bold mb-6 text-neon-green">
+                    <i class="fas fa-edit mr-3"></i>Share Text
+                </h2>
+                
+                <form id="textShareForm" class="space-y-6">
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Text Content</label>
+                        <textarea name="text_content" rows="8" placeholder="Enter your text content here..." class="w-full bg-dark-bg border border-dark-border rounded-lg px-3 py-2 text-dark-text focus:border-neon-blue focus:outline-none resize-none" required></textarea>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Title</label>
+                            <input type="text" name="title" placeholder="Enter title" class="w-full bg-dark-bg border border-dark-border rounded-lg px-3 py-2 text-dark-text focus:border-neon-blue focus:outline-none" required>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Expiry Time</label>
+                            <select name="expiry_hours" class="w-full bg-dark-bg border border-dark-border rounded-lg px-3 py-2 text-dark-text focus:border-neon-blue focus:outline-none">
+                                <option value="1">1 Hour</option>
+                                <option value="6">6 Hours</option>
+                                <option value="24" selected>24 Hours</option>
+                                <option value="72">3 Days</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Download Limit (Optional)</label>
+                            <input type="number" name="max_downloads" min="1" max="100" placeholder="Unlimited" class="w-full bg-dark-bg border border-dark-border rounded-lg px-3 py-2 text-dark-text focus:border-neon-blue focus:outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Access Password (Optional)</label>
+                            <input type="password" name="access_password" placeholder="Enter password" class="w-full bg-dark-bg border border-dark-border rounded-lg px-3 py-2 text-dark-text focus:border-neon-blue focus:outline-none">
+                        </div>
+                    </div>
+
+                    <button type="submit" class="w-full bg-neon-green text-black py-3 rounded-lg font-semibold hover:bg-neon-blue transition-all duration-300 transform hover:scale-105">
+                        <i class="fas fa-share-alt mr-2"></i>Share Text
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Result Section -->
+        <div class="space-y-8">
+            <!-- Share Result -->
+            <div id="shareResult" class="hidden bg-dark-card border border-dark-border rounded-lg p-8">
+                <h2 class="text-2xl font-bold mb-6 text-neon-blue">
+                    <i class="fas fa-check-circle mr-3"></i>Share Successful
+                </h2>
+                
+                <div class="space-y-6">
+                    <!-- Access Code -->
+                    <div class="bg-dark-bg border border-dark-border rounded-lg p-4">
+                        <label class="block text-sm font-medium mb-2">Access Code</label>
+                        <div class="flex">
+                            <input type="text" id="accessCode" readonly class="flex-1 bg-transparent border-none text-2xl font-mono text-neon-blue focus:outline-none">
+                            <button onclick="copyToClipboard('accessCode')" class="ml-2 px-3 py-1 bg-neon-blue text-black rounded hover:bg-neon-green transition-colors">
+                                <i class="fas fa-copy"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Share URL -->
+                    <div class="bg-dark-bg border border-dark-border rounded-lg p-4">
+                        <label class="block text-sm font-medium mb-2">Share URL</label>
+                        <div class="flex">
+                            <input type="text" id="shareUrl" readonly class="flex-1 bg-transparent border-none text-sm text-dark-text focus:outline-none">
+                            <button onclick="copyToClipboard('shareUrl')" class="ml-2 px-3 py-1 bg-neon-blue text-black rounded hover:bg-neon-green transition-colors">
+                                <i class="fas fa-copy"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- QR Code -->
+                    <div class="text-center">
+                        <label class="block text-sm font-medium mb-4">QR Code</label>
+                        <div class="inline-block bg-white p-4 rounded-lg">
+                            <img id="qrCode" src="" alt="QR Code" class="w-48 h-48">
+                        </div>
+                        <p class="text-sm text-dark-secondary mt-2">Scan to access shared content</p>
+                    </div>
+
+                    <!-- Expiry Info -->
+                    <div class="bg-yellow-900 border border-yellow-700 rounded-lg p-4">
+                        <div class="flex items-center">
+                            <i class="fas fa-clock text-yellow-400 mr-2"></i>
+                            <span class="text-sm">
+                                <strong>Expires:</strong> <span id="expiryTime"></span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Access File -->
+            <div class="bg-dark-card border border-dark-border rounded-lg p-8">
+                <h2 class="text-2xl font-bold mb-6 text-neon-green">
+                    <i class="fas fa-key mr-3"></i>Access Shared Content
+                </h2>
+                
+                <form id="accessForm" class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Access Code</label>
+                        <input type="text" id="accessCodeInput" placeholder="Enter access code" class="w-full bg-dark-bg border border-dark-border rounded-lg px-3 py-2 text-dark-text focus:border-neon-blue focus:outline-none font-mono text-center text-lg" required maxlength="8">
+                    </div>
+                    <button type="submit" class="w-full bg-neon-green text-black py-3 rounded-lg font-semibold hover:bg-neon-blue transition-all duration-300">
+                        <i class="fas fa-key mr-2"></i>Access Content
+                    </button>
+                </form>
+            </div>
+
+            <!-- Instructions -->
+            <div class="bg-dark-card border border-dark-border rounded-lg p-8">
+                <h3 class="text-lg font-semibold mb-4 text-neon-blue">
+                    <i class="fas fa-info-circle mr-2"></i>How it works
+                </h3>
+                <ul class="space-y-2 text-sm text-dark-secondary">
+                    <li class="flex items-start">
+                        <i class="fas fa-check text-neon-green mr-2 mt-1"></i>
+                        Upload your file or enter text content
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fas fa-check text-neon-green mr-2 mt-1"></i>
+                        Set expiry time and optional password
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fas fa-check text-neon-green mr-2 mt-1"></i>
+                        Share the access code or QR code
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fas fa-check text-neon-green mr-2 mt-1"></i>
+                        Recipients access content with the code
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fas fa-check text-neon-green mr-2 mt-1"></i>
+                        Files auto-delete after expiry time
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Modal -->
+    <div id="loadingModal" class="hidden fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50">
+        <div class="bg-dark-card border border-dark-border rounded-lg p-8 text-center">
+            <div class="animate-spin text-4xl text-neon-blue mb-4">
+                <i class="fas fa-spinner"></i>
+            </div>
+            <p class="text-lg font-semibold mb-2">Uploading and generating share code...</p>
+            <p class="text-dark-secondary text-sm">Please wait while we process your request</p>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/share.js') }}"></script>
+{% endblock %}

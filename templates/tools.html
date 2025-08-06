@@ -1,0 +1,182 @@
+{% extends "base.html" %}
+
+{% block title %}DocMorph Tools{% endblock %}
+
+{% block content %}
+<div class="animate-fade-in">
+    <!-- Page Header -->
+    <div class="text-center mb-12">
+        <h1 class="text-4xl font-bold text-accent-orange mb-4">
+            <i class="fas fa-tools mr-3"></i>DocMorph Tools
+        </h1>
+        <p class="text-xl text-dark-secondary">Professional PDF processing tools with drag-and-drop interface</p>
+    </div>
+
+    <!-- Tools Grid -->
+    <div class="space-y-12">
+        <!-- Merge PDFs -->
+        <div id="merge" class="bg-dark-card border border-dark-border rounded-lg p-8 animate-slide-up">
+            <div class="flex items-center mb-6">
+                <i class="fas fa-object-group text-3xl text-accent-orange mr-4"></i>
+                <h2 class="text-2xl font-bold">Merge PDFs</h2>
+            </div>
+            <p class="text-dark-secondary mb-6">Combine multiple PDF files into a single document</p>
+            
+            <form id="mergeForm" class="space-y-4">
+                <div class="file-input-custom rounded-lg p-8 text-center cursor-pointer" onclick="document.getElementById('mergeFiles').click()">
+                    <i class="fas fa-cloud-upload-alt text-4xl text-accent-orange mb-4"></i>
+                    <p class="text-lg mb-2">Drop PDF files here or click to select</p>
+                    <p class="text-sm text-dark-secondary">Select at least 2 PDF files to merge</p>
+                    <input type="file" id="mergeFiles" name="files" multiple accept=".pdf" class="hidden" required>
+                </div>
+                <div id="mergeFileList" class="hidden space-y-2"></div>
+                <button type="submit" class="w-full bg-accent-orange text-black py-3 rounded-lg font-semibold hover:bg-accent-orange-hover transition-all duration-300 transform hover:scale-105">
+                    <i class="fas fa-object-group mr-2"></i>Merge PDFs
+                </button>
+            </form>
+        </div>
+
+        <!-- Split PDF -->
+        <div id="split" class="bg-dark-card border border-dark-border rounded-lg p-8 animate-slide-up">
+            <div class="flex items-center mb-6">
+                <i class="fas fa-cut text-3xl text-accent-orange-hover mr-4"></i>
+                <h2 class="text-2xl font-bold">Split PDF</h2>
+            </div>
+            <p class="text-dark-secondary mb-6">Split a PDF into individual pages</p>
+            
+            <form id="splitForm" class="space-y-4">
+                <div class="file-input-custom rounded-lg p-8 text-center cursor-pointer" onclick="document.getElementById('splitFile').click()">
+                    <i class="fas fa-cloud-upload-alt text-4xl text-accent-orange-hover mb-4"></i>
+                    <p class="text-lg mb-2">Drop PDF file here or click to select</p>
+                    <p class="text-sm text-dark-secondary">Select a PDF file to split into pages</p>
+                    <input type="file" id="splitFile" name="file" accept=".pdf" class="hidden" required>
+                </div>
+                <div id="splitFileInfo" class="hidden p-4 bg-dark-bg rounded-lg"></div>
+                <button type="submit" class="w-full bg-accent-orange-hover text-black py-3 rounded-lg font-semibold hover:bg-accent-orange transition-all duration-300 transform hover:scale-105">
+                    <i class="fas fa-cut mr-2"></i>Split PDF
+                </button>
+            </form>
+        </div>
+
+        <!-- Compress PDF -->
+        <div id="compress" class="bg-dark-card border border-dark-border rounded-lg p-8 animate-slide-up">
+            <div class="flex items-center mb-6">
+                <i class="fas fa-compress text-3xl text-accent-orange mr-4"></i>
+                <h2 class="text-2xl font-bold">Compress PDF</h2>
+            </div>
+            <p class="text-dark-secondary mb-6">Reduce PDF file size while maintaining quality</p>
+            
+            <form id="compressForm" class="space-y-4">
+                <div class="file-input-custom rounded-lg p-8 text-center cursor-pointer" onclick="document.getElementById('compressFile').click()">
+                    <i class="fas fa-cloud-upload-alt text-4xl text-accent-orange mb-4"></i>
+                    <p class="text-lg mb-2">Drop PDF file here or click to select</p>
+                    <p class="text-sm text-dark-secondary">Select a PDF file to compress</p>
+                    <input type="file" id="compressFile" name="file" accept=".pdf" class="hidden" required>
+                </div>
+                <div id="compressFileInfo" class="hidden p-4 bg-dark-bg rounded-lg"></div>
+                <button type="submit" class="w-full bg-accent-orange text-black py-3 rounded-lg font-semibold hover:bg-accent-orange-hover transition-all duration-300 transform hover:scale-105">
+                    <i class="fas fa-compress mr-2"></i>Compress PDF
+                </button>
+            </form>
+        </div>
+
+        <!-- File Conversion -->
+        <div id="convert" class="bg-dark-card border border-dark-border rounded-lg p-8 animate-slide-up">
+            <div class="flex items-center mb-6">
+                <i class="fas fa-exchange-alt text-3xl text-neon-green mr-4"></i>
+                <h2 class="text-2xl font-bold">File Conversion</h2>
+            </div>
+            <p class="text-dark-secondary mb-6">Convert between PDF, DOCX, TXT, and CSV formats</p>
+            
+            <form id="convertForm" class="space-y-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Conversion Type</label>
+                        <select id="conversionType" name="conversion_type" class="w-full bg-dark-bg border border-dark-border rounded-lg px-3 py-2 text-dark-text focus:border-neon-blue focus:outline-none" required>
+                            <option value="">Select conversion type</option>
+                            <option value="pdf_to_docx">PDF → DOCX</option>
+                            <option value="pdf_to_txt">PDF → TXT</option>
+                            <option value="pdf_to_csv">PDF → CSV</option>
+                            <option value="docx_to_pdf">DOCX → PDF</option>
+                            <option value="txt_to_pdf">TXT → PDF</option>
+                            <option value="csv_to_pdf">CSV → PDF</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="file-input-custom rounded-lg p-8 text-center cursor-pointer" onclick="document.getElementById('convertFile').click()">
+                    <i class="fas fa-cloud-upload-alt text-4xl text-neon-green mb-4"></i>
+                    <p class="text-lg mb-2">Drop file here or click to select</p>
+                    <p class="text-sm text-dark-secondary">Select a file to convert</p>
+                    <input type="file" id="convertFile" name="file" class="hidden" required>
+                </div>
+                <div id="convertFileInfo" class="hidden p-4 bg-dark-bg rounded-lg"></div>
+                <button type="submit" class="w-full bg-neon-green text-black py-3 rounded-lg font-semibold hover:bg-neon-blue transition-all duration-300 transform hover:scale-105">
+                    <i class="fas fa-exchange-alt mr-2"></i>Convert File
+                </button>
+            </form>
+        </div>
+
+        <!-- Encrypt/Decrypt PDF -->
+        <div id="security" class="bg-dark-card border border-dark-border rounded-lg p-8 animate-slide-up">
+            <div class="flex items-center mb-6">
+                <i class="fas fa-lock text-3xl text-neon-blue mr-4"></i>
+                <h2 class="text-2xl font-bold">PDF Security</h2>
+            </div>
+            <p class="text-dark-secondary mb-6">Add or remove password protection from PDF files</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Encrypt -->
+                <div>
+                    <h3 class="text-lg font-semibold mb-4 text-neon-blue">
+                        <i class="fas fa-lock mr-2"></i>Encrypt PDF
+                    </h3>
+                    <form id="encryptForm" class="space-y-4">
+                        <div class="file-input-custom rounded-lg p-6 text-center cursor-pointer" onclick="document.getElementById('encryptFile').click()">
+                            <i class="fas fa-cloud-upload-alt text-2xl text-neon-blue mb-2"></i>
+                            <p class="text-sm mb-1">Select PDF to encrypt</p>
+                            <input type="file" id="encryptFile" name="file" accept=".pdf" class="hidden" required>
+                        </div>
+                        <input type="password" name="password" placeholder="Enter password" class="w-full bg-dark-bg border border-dark-border rounded-lg px-3 py-2 text-dark-text focus:border-neon-blue focus:outline-none" required>
+                        <button type="submit" class="w-full bg-neon-blue text-black py-2 rounded-lg font-semibold hover:bg-neon-green transition-all duration-300">
+                            <i class="fas fa-lock mr-2"></i>Encrypt PDF
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Decrypt -->
+                <div>
+                    <h3 class="text-lg font-semibold mb-4 text-neon-green">
+                        <i class="fas fa-unlock mr-2"></i>Decrypt PDF
+                    </h3>
+                    <form id="decryptForm" class="space-y-4">
+                        <div class="file-input-custom rounded-lg p-6 text-center cursor-pointer" onclick="document.getElementById('decryptFile').click()">
+                            <i class="fas fa-cloud-upload-alt text-2xl text-neon-green mb-2"></i>
+                            <p class="text-sm mb-1">Select encrypted PDF</p>
+                            <input type="file" id="decryptFile" name="file" accept=".pdf" class="hidden" required>
+                        </div>
+                        <input type="password" name="password" placeholder="Enter password" class="w-full bg-dark-bg border border-dark-border rounded-lg px-3 py-2 text-dark-text focus:border-neon-blue focus:outline-none" required>
+                        <button type="submit" class="w-full bg-neon-green text-black py-2 rounded-lg font-semibold hover:bg-neon-blue transition-all duration-300">
+                            <i class="fas fa-unlock mr-2"></i>Decrypt PDF
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Modal -->
+    <div id="loadingModal" class="hidden fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50">
+        <div class="bg-dark-card border border-dark-border rounded-lg p-8 text-center">
+            <div class="animate-spin text-4xl text-neon-blue mb-4">
+                <i class="fas fa-spinner"></i>
+            </div>
+            <p class="text-lg font-semibold mb-2">Processing your file...</p>
+            <p class="text-dark-secondary text-sm">Please wait while we process your request</p>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/tools.js') }}"></script>
+{% endblock %}

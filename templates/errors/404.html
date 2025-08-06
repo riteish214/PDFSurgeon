@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}Page Not Found{% endblock %}
+
+{% block content %}
+<div class="min-h-screen flex items-center justify-center animate-fade-in">
+    <div class="max-w-md w-full text-center space-y-8">
+        <div>
+            <i class="fas fa-search text-6xl text-neon-blue mb-6"></i>
+            <h2 class="text-3xl font-bold mb-4">Page Not Found</h2>
+            <p class="text-dark-secondary">
+                The page you're looking for doesn't exist or has been moved.
+            </p>
+        </div>
+        
+        <div class="space-y-4">
+            <a 
+                href="{{ url_for('index') }}" 
+                class="inline-block bg-neon-blue text-black px-8 py-3 rounded-lg font-semibold hover:bg-neon-green transition-all duration-300"
+            >
+                <i class="fas fa-home mr-2"></i>Back to Home
+            </a>
+            
+            <div class="grid grid-cols-2 gap-4 text-sm">
+                <a href="{{ url_for('tools') }}" class="text-dark-secondary hover:text-neon-blue transition-colors">
+                    <i class="fas fa-tools mr-1"></i>PDF Tools
+                </a>
+                <a href="{{ url_for('share') }}" class="text-dark-secondary hover:text-neon-blue transition-colors">
+                    <i class="fas fa-share-alt mr-1"></i>File Sharing
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
