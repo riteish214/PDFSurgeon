@@ -9,7 +9,7 @@
         <h1 class="text-4xl font-bold text-neon-green mb-4">
             <i class="fas fa-share-alt mr-3"></i>Secure File Sharing
         </h1>
-        <p class="text-xl text-dark-secondary">Share files or text securely with unique codes and QR codes</p>
+        <p class="text-xl text-dark-secondary">Share files securely with unique codes and QR codes</p>
     </div>
 
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
@@ -73,51 +73,6 @@
 
                     <button type="submit" class="w-full bg-neon-blue text-black py-3 rounded-lg font-semibold hover:bg-neon-green transition-all duration-300 transform hover:scale-105">
                         <i class="fas fa-share-alt mr-2"></i>Share File
-                    </button>
-                </form>
-            </div>
-
-            <!-- Text Sharing -->
-            <div class="bg-dark-card border border-dark-border rounded-lg p-8">
-                <h2 class="text-2xl font-bold mb-6 text-neon-green">
-                    <i class="fas fa-edit mr-3"></i>Share Text
-                </h2>
-                
-                <form id="textShareForm" class="space-y-6">
-                    <div>
-                        <label class="block text-sm font-medium mb-2">Text Content</label>
-                        <textarea name="text_content" rows="8" placeholder="Enter your text content here..." class="w-full bg-dark-bg border border-dark-border rounded-lg px-3 py-2 text-dark-text focus:border-neon-blue focus:outline-none resize-none" required></textarea>
-                    </div>
-
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div>
-                            <label class="block text-sm font-medium mb-2">Title</label>
-                            <input type="text" name="title" placeholder="Enter title" class="w-full bg-dark-bg border border-dark-border rounded-lg px-3 py-2 text-dark-text focus:border-neon-blue focus:outline-none" required>
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium mb-2">Expiry Time</label>
-                            <select name="expiry_hours" class="w-full bg-dark-bg border border-dark-border rounded-lg px-3 py-2 text-dark-text focus:border-neon-blue focus:outline-none">
-                                <option value="1">1 Hour</option>
-                                <option value="6">6 Hours</option>
-                                <option value="24" selected>24 Hours</option>
-                                <option value="72">3 Days</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div>
-                            <label class="block text-sm font-medium mb-2">Download Limit (Optional)</label>
-                            <input type="number" name="max_downloads" min="1" max="100" placeholder="Unlimited" class="w-full bg-dark-bg border border-dark-border rounded-lg px-3 py-2 text-dark-text focus:border-neon-blue focus:outline-none">
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium mb-2">Access Password (Optional)</label>
-                            <input type="password" name="access_password" placeholder="Enter password" class="w-full bg-dark-bg border border-dark-border rounded-lg px-3 py-2 text-dark-text focus:border-neon-blue focus:outline-none">
-                        </div>
-                    </div>
-
-                    <button type="submit" class="w-full bg-neon-green text-black py-3 rounded-lg font-semibold hover:bg-neon-blue transition-all duration-300 transform hover:scale-105">
-                        <i class="fas fa-share-alt mr-2"></i>Share Text
                     </button>
                 </form>
             </div>
@@ -200,7 +155,7 @@
                 <ul class="space-y-2 text-sm text-dark-secondary">
                     <li class="flex items-start">
                         <i class="fas fa-check text-neon-green mr-2 mt-1"></i>
-                        Upload your file or enter text content
+                        Upload your file
                     </li>
                     <li class="flex items-start">
                         <i class="fas fa-check text-neon-green mr-2 mt-1"></i>

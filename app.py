@@ -23,12 +23,18 @@ from utils.qr_generator import QRGenerator
 # Configure logging
 logging.basicConfig(level=logging.DEBUG)
 
+# Create the Flask app instance
 app = Flask(__name__)
 app.secret_key = os.environ.get("SESSION_SECRET", "dev-secret-key-change-in-production")
 app.wsgi_app = ProxyFix(app.wsgi_app, x_proto=1, x_host=1)
 
 # Database configuration
-app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DATABASE_URL")
+database_url = os.environ.get("DATABASE_URL")
+if not database_url:
+    # Use SQLite as fallback if no DATABASE_URL is set
+    database_url = 'sqlite:///pdfsurgeon.db'
+
+app.config["SQLALCHEMY_DATABASE_URI"] = database_url
 app.config["SQLALCHEMY_ENGINE_OPTIONS"] = {
     "pool_recycle": 300,
     "pool_pre_ping": True,
